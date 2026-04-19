@@ -19,7 +19,7 @@ TRÆCERA leverages **Momentum Intelligence** and **On-Chain Velocity** to map ou
 - **🏆 Ecosystem Rankings**: A dynamic leaderboard tracking 140+ African Solana projects based on active users and 30-day growth.
 - **🔍 Deep Filtering & Search**: Explore the ecosystem by Category (DeFi, Infrastructure, etc.), Status (Live, Beta, Coming Soon), and Origin Country.
 - **📈 Advanced Project Dashboards**: Deep-dive into project charts built with Recharts, highlighting 6-month user adoption trends and transaction volume.
-- **🛡️ Proprietary Tracera Methodology**:
+- **🛡️ Proprietary Træcera Methodology**:
   - *Momentum Intelligence*: Tracks social sentiment, commits, and organic community growth.
   - *Trust Verification*: Prioritizes audited projects, local FIAT integrations, and doxxed teams.
   - *On-Chain Velocity*: Evaluates continued and efficient on-chain engagement.

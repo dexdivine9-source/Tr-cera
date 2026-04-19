@@ -230,7 +230,7 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: Rea
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">Trust Verification</h3>
                 <p className="text-[#9CA3AF] leading-relaxed text-[15px]">
-                  Audits, doxxed teams, and local FIAT integrations factor heavily into the Tracera Score.
+                  Audits, doxxed teams, and local FIAT integrations factor heavily into the Træcera Score.
                 </p>
               </div>
             </div>
