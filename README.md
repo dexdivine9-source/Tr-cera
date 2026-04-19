@@ -4,7 +4,7 @@
 
 # TRÆCERA 🌍🔆
 
-**Track the Rise of Solana in Africa.** 
+**Live App**: [https://tr-cera.vercel.app/](https://tr-cera.vercel.app/) | **Track the Rise of Solana in Africa.** 
 
 TRÆCERA is the premier ecosystem platform to discover, track, and analyze 140+ African-built projects and applications launching on the Solana frontier. We provide real data, live tracking, and one unified ecosystem dashboard to highlight the most promising teams on the continent.
 
