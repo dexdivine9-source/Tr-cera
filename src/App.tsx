@@ -282,7 +282,10 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: Rea
                     <div className="flex items-center gap-4">
                       <img src={proj.logo} alt={proj.name} className="w-12 h-12 rounded-xl" referrerPolicy="no-referrer" />
                       <div>
-                        <div className="font-semibold text-white whitespace-nowrap mb-1">{proj.name}</div>
+                        <div className="font-semibold text-white whitespace-nowrap mb-1 flex items-center gap-1.5">
+                          {proj.name}
+                          {idx < 3 && <ShieldCheck size={14} className="text-blue-400 fill-blue-400/10" />}
+                        </div>
                         <span className={`badge ${
                           proj.status === 'Live' ? 'badge-live' : 
                           proj.status === 'Beta' ? 'badge-beta' : 'badge-coming-soon'
@@ -315,8 +318,8 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: Rea
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-blue/10 blur-[100px] rounded-full pointer-events-none -z-10" />
           
-          {trendingProjects.map((proj) => (
-            <ProjectCard key={proj.id} project={proj} onClick={() => onProjectClick(proj.id)} />
+          {trendingProjects.map((proj, idx) => (
+            <ProjectCard key={proj.id} project={proj} onClick={() => onProjectClick(proj.id)} verified={topProjects.some(tp => tp.id === proj.id && topProjects.indexOf(tp) < 3)} />
           ))}
         </div>
       </section>
@@ -471,7 +474,10 @@ function LeaderboardView({ onHome, onProjectClick, onSubmit }: { key?: React.Key
                         <div className="flex items-center gap-4">
                           <img src={project.logo} alt={project.name} className="w-12 h-12 rounded-xl border border-white/5" referrerPolicy="no-referrer" />
                           <div>
-                            <div className="font-semibold text-white mb-1 leading-tight">{project.name}</div>
+                            <div className="font-semibold text-white mb-1 leading-tight flex items-center gap-1.5">
+                              {project.name}
+                              {idx < 3 && <ShieldCheck size={14} className="text-blue-400 fill-blue-400/10" />}
+                            </div>
                             <span className={`badge ${
                               project.status === 'Live' ? 'badge-live' : 
                               project.status === 'Beta' ? 'badge-beta' : 'badge-coming-soon'
@@ -516,7 +522,7 @@ function LeaderboardView({ onHome, onProjectClick, onSubmit }: { key?: React.Key
                   transition={{ duration: 0.2, delay: idx > 10 ? 0 : idx * 0.05 }}
                   key={project.id}
                 >
-                  <ProjectCard project={project} onClick={() => onProjectClick(project.id)} />
+                  <ProjectCard project={project} onClick={() => onProjectClick(project.id)} verified={idx < 3} />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -554,6 +560,13 @@ function ProjectDetailView({ projectId, onBack, onHome, onSubmit }: { key?: Reac
     return data;
   }, [project]);
 
+  const isVerified = useMemo(() => {
+    return [...projectsData]
+      .sort((a, b) => b.trending_score - a.trending_score)
+      .slice(0, 3)
+      .some(p => p.id === project.id);
+  }, [project.id]);
+
   return (
     <motion.div 
       initial={{ opacity: 0, x: 20 }}
@@ -570,7 +583,10 @@ function ProjectDetailView({ projectId, onBack, onHome, onSubmit }: { key?: Reac
             <div className="flex items-center gap-6">
               <img src={project.logo} alt={project.name} className="w-20 h-20 rounded-2xl border border-white/10 shadow-xl" referrerPolicy="no-referrer" />
               <div>
-                <h1 className="text-heading-1 text-white mb-2 leading-tight">{project.name}</h1>
+                <h1 className="text-heading-1 text-white mb-2 leading-tight flex items-center gap-3">
+                  {project.name}
+                  {isVerified && <ShieldCheck size={28} className="text-blue-400 fill-blue-400/10" />}
+                </h1>
                 <div className="flex flex-wrap items-center gap-3">
                   <span className={`badge ${
                     project.status === 'Live' ? 'badge-live' : 
@@ -780,7 +796,7 @@ function ProjectDetailView({ projectId, onBack, onHome, onSubmit }: { key?: Reac
 // -----------------------------------------
 // Project Card (Reusable Component)
 // -----------------------------------------
-export function ProjectCard({ project, onClick }: { project: Project; onClick: () => void; key?: React.Key }) {
+export function ProjectCard({ project, onClick, verified }: { project: Project; onClick: () => void; verified?: boolean; key?: React.Key }) {
   return (
     <div 
       className="glass-card p-6 flex flex-col h-full group cursor-pointer"
@@ -801,7 +817,10 @@ export function ProjectCard({ project, onClick }: { project: Project; onClick: (
         </span>
       </div>
       
-      <h3 className="text-heading-3 text-white mb-2">{project.name}</h3>
+      <h3 className="text-heading-3 text-white mb-2 flex items-center gap-2">
+        {project.name}
+        {verified && <ShieldCheck size={16} className="text-blue-400 fill-blue-400/10" />}
+      </h3>
       <p className="text-body text-sm line-clamp-2 mb-6 flex-1">
         {project.description}
       </p>
