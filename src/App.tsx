@@ -16,10 +16,12 @@ import {
   Fingerprint,
   BarChart3,
   RefreshCw,
-  ShieldCheck
+  ShieldCheck,
+  Menu
 } from 'lucide-react';
 import { projectsData, Project } from './data/projects';
 import { motion, AnimatePresence } from 'motion/react';
+import Sidebar from './components/Sidebar';
 
 type ViewState = 
   | { name: 'home' }
@@ -32,15 +34,16 @@ type ViewState =
 // Custom Logo Icon (Isometric Cube)
 // -----------------------------------------
 const LogoIcon = ({ className = "", size = 24 }: { className?: string, size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <path d="M21 7L12 12V22L21 17V7Z" fill="currentColor" opacity="1" />
-    <path d="M3 7L12 12V22L3 17V7Z" fill="currentColor" opacity="0.3" />
-    <path d="M12 2L21 7L12 12L3 7L12 2Z" fill="currentColor" opacity="0.6" />
-  </svg>
+  <img src="/logo.png" width={size} height={size} className={`object-contain ${className}`} alt="TRÆCERA Logo" />
 );
 
 export default function App() {
   const [view, setView] = useState<ViewState>({ name: 'home' });
+
+  // ── Sidebar state ──
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('All');
 
   // Navigation handlers
   const goHome = () => setView({ name: 'home' });
@@ -49,25 +52,61 @@ export default function App() {
   const goSignup = () => setView({ name: 'signup' });
   const goSubmit = () => setView({ name: 'submit' });
 
+  const handleSidebarNavigate = (target: 'home' | 'leaderboard') => {
+    if (target === 'home') goHome();
+    else goLeaderboard();
+  };
+
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-[#14F195]/30 p-6 max-h-screen overflow-hidden">
-      <AnimatePresence mode="wait">
-        {view.name === 'home' && (
-          <HomeView key="home" onExplore={goLeaderboard} onProjectClick={goProject} onSignup={goSignup} onSubmit={goSubmit} />
-        )}
-        {view.name === 'leaderboard' && (
-          <LeaderboardView key="leaderboard" onHome={goHome} onProjectClick={goProject} onSubmit={goSubmit} />
-        )}
-        {view.name === 'project' && (
-          <ProjectDetailView key={`project-${view.id}`} projectId={view.id} onBack={goLeaderboard} onHome={goHome} onSubmit={goSubmit} />
-        )}
-        {view.name === 'signup' && (
-          <SignupView key="signup" onClose={goHome} />
-        )}
-        {view.name === 'submit' && (
-          <SubmitProjectView key="submit" onClose={goHome} />
-        )}
-      </AnimatePresence>
+    <div className={`app-layout ${sidebarCollapsed ? 'layout-collapsed' : ''}`}>
+      {/* Mobile hamburger trigger */}
+      <button
+        className="sidebar-mobile-trigger"
+        onClick={() => setMobileOpen(true)}
+        aria-label="Open navigation"
+      >
+        <Menu size={20} />
+      </button>
+
+      {/* Sidebar */}
+      <Sidebar
+        activeCategory={activeCategory}
+        onCategoryChange={setActiveCategory}
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={() => setSidebarCollapsed(prev => !prev)}
+        mobileOpen={mobileOpen}
+        onMobileClose={() => setMobileOpen(false)}
+        onNavigate={handleSidebarNavigate}
+        activeView={view.name}
+      />
+
+      {/* Main Content */}
+      <main className="app-main-content selection:bg-[#14F195]/30">
+        <AnimatePresence mode="wait">
+          {view.name === 'home' && (
+            <HomeView key="home" onExplore={goLeaderboard} onProjectClick={goProject} onSignup={goSignup} onSubmit={goSubmit} />
+          )}
+          {view.name === 'leaderboard' && (
+            <LeaderboardView
+              key="leaderboard"
+              onHome={goHome}
+              onProjectClick={goProject}
+              onSubmit={goSubmit}
+              externalCategory={activeCategory}
+              onCategoryChange={setActiveCategory}
+            />
+          )}
+          {view.name === 'project' && (
+            <ProjectDetailView key={`project-${view.id}`} projectId={view.id} onBack={goLeaderboard} onHome={goHome} onSubmit={goSubmit} />
+          )}
+          {view.name === 'signup' && (
+            <SignupView key="signup" onClose={goHome} />
+          )}
+          {view.name === 'submit' && (
+            <SubmitProjectView key="submit" onClose={goHome} />
+          )}
+        </AnimatePresence>
+      </main>
     </div>
   );
 }
@@ -88,9 +127,8 @@ function SignupView({ onClose }: { key?: React.Key; onClose: () => void }) {
       </button>
 
       <div className="w-full max-w-md glass-card p-10 flex flex-col items-center bg-[#080808]/80 backdrop-blur-3xl border border-white/5 shadow-2xl relative mx-auto my-auto mt-20 md:mt-auto">
-        <div className="flex items-center gap-2 text-3xl font-bold tracking-tight text-white select-none mb-8">
-          <LogoIcon className="text-brand-purple" size={32} />
-          <span>TRÆ<span className="text-gradient">CERA</span></span>
+        <div className="flex items-center justify-center select-none mb-8">
+          <LogoIcon className="" size={120} />
         </div>
         
         <h2 className="text-2xl font-bold text-white mb-2">Create an account</h2>
@@ -155,9 +193,8 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: Rea
     >
       {/* Header/Nav */}
       <header className="flex justify-between items-center py-6 mb-12 max-w-6xl mx-auto px-6">
-        <div className="flex items-center gap-2 text-2xl font-bold tracking-tight text-white cursor-pointer select-none">
-          <LogoIcon className="text-brand-purple" size={24} />
-          <span>TRÆ<span className="text-gradient">CERA</span></span>
+        <div className="flex items-center cursor-pointer select-none" onClick={onExplore}>
+          <LogoIcon className="" size={40} />
         </div>
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
           <button className="hover:text-white transition-colors" onClick={onExplore}>Explore</button>
@@ -337,8 +374,15 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: Rea
 // -----------------------------------------
 // Leaderboard View
 // -----------------------------------------
-function LeaderboardView({ onHome, onProjectClick, onSubmit }: { key?: React.Key; onHome: () => void; onProjectClick: (id: string) => void; onSubmit: () => void }) {
-  const [filterCat, setFilterCat] = useState<string>('All');
+function LeaderboardView({ onHome, onProjectClick, onSubmit, externalCategory, onCategoryChange }: { key?: React.Key; onHome: () => void; onProjectClick: (id: string) => void; onSubmit: () => void; externalCategory?: string; onCategoryChange?: (cat: string) => void }) {
+  // Use external category from sidebar if provided, otherwise local state
+  const [localFilterCat, setLocalFilterCat] = useState<string>('All');
+  const filterCat = externalCategory ?? localFilterCat;
+  const setFilterCat = (cat: string) => {
+    setLocalFilterCat(cat);
+    if (onCategoryChange) onCategoryChange(cat);
+  };
+
   const [filterStatus, setFilterStatus] = useState<string>('All');
   const [filterCountry, setFilterCountry] = useState<string>('All');
   const [search, setSearch] = useState('');
@@ -879,9 +923,8 @@ function Footer() {
     <footer className="bg-[#050505] pt-16 pb-12 px-6 border-t border-[rgba(255,255,255,0.05)] text-sm text-[#9CA3AF] w-full">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2 mb-4 text-white font-bold text-lg">
-            <LogoIcon className="text-brand-purple" size={20} />
-            TRÆCERA
+          <div className="flex items-center mb-4 text-white font-bold text-lg">
+            <LogoIcon className="" size={32} />
           </div>
           <p className="mb-8 font-sans">
             The definitive intelligence layer for<br/>African Web3 innovation.
