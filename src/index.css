@@ -589,7 +589,6 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar-mobile-trigger {
   width: 40px;
   height: 40px;
-  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
@@ -665,9 +664,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 72px;
   }
 
-  .sidebar-mobile-trigger {
-    display: flex;
-  }
 }
 
 /* Tablet: collapse by default */
@@ -684,9 +680,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 72px;
   }
 
-  .sidebar-mobile-trigger {
-    display: none;
-  }
 
   .sidebar .sidebar-nav-item {
     justify-content: center;
@@ -732,9 +725,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 0;
   }
 
-  .sidebar-mobile-trigger {
-    display: flex;
-  }
 
   .desktop-only {
     display: none !important;

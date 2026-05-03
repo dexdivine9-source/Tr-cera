@@ -23,6 +23,7 @@ import { projectsData, Project } from './data/projects';
 import { motion, AnimatePresence } from 'motion/react';
 import Sidebar from './components/Sidebar';
 import { MethodologySection } from './components/MethodologySection';
+import { Navbar } from './components/Navbar';
 
 type ViewState = 
   | { name: 'home' }
@@ -200,33 +201,12 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit, onOpenMenu }:
       className="w-full h-full min-h-[100dvh] bg-[#0a0a0f] overflow-y-auto overflow-x-hidden pb-24"
     >
       {/* Header/Nav */}
-      <header className="flex justify-between items-center py-6 mb-12 max-w-6xl mx-auto px-6">
-        <div className="flex items-center cursor-pointer select-none" onClick={onExplore}>
-          <LogoIcon className="" size={40} />
-        </div>
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-          <button className="hover:text-white transition-colors" onClick={onExplore}>Explore</button>
-          <button 
-            className="hover:text-white transition-colors" 
-            onClick={() => {
-              if (window.location.pathname !== '/') onExplore();
-              setTimeout(() => document.getElementById('trending')?.scrollIntoView({ behavior: 'smooth' }), 100);
-            }}
-          >
-            Trending
-          </button>
-          <button className="hover:text-white transition-colors" onClick={onSubmit}>Submit Project</button>
-        </nav>
-        <div className="flex items-center gap-4">
-          <button
-            className="sidebar-mobile-trigger"
-            onClick={onOpenMenu}
-            aria-label="Open navigation"
-          >
-            <Menu size={20} />
-          </button>
-        </div>
-      </header>
+      <Navbar 
+        onExplore={onExplore} 
+        onSubmit={onSubmit} 
+        onOpenMenu={onOpenMenu} 
+        LogoIcon={LogoIcon} 
+      />
 
       {/* Hero Section */}
       <section className="text-center max-w-4xl mx-auto px-6 pt-12 pb-20 relative">
@@ -435,7 +415,7 @@ function LeaderboardView({ onHome, onProjectClick, onSubmit, externalCategory, o
             </select>
             
             <button
-              className="sidebar-mobile-trigger"
+              className="sidebar-mobile-trigger flex md:hidden items-center justify-center"
               onClick={onOpenMenu}
               aria-label="Open navigation"
             >
@@ -622,7 +602,7 @@ function ProjectDetailView({ projectId, onBack, onHome, onSubmit, onOpenMenu }: 
                Visit App <ExternalLink size={16} />
              </button>
              <button
-               className="sidebar-mobile-trigger"
+               className="sidebar-mobile-trigger flex md:hidden items-center justify-center"
                onClick={onOpenMenu}
                aria-label="Open navigation"
              >
