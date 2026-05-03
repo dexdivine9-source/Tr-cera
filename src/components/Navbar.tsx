@@ -15,8 +15,8 @@ export function Navbar({ onExplore, onSubmit, onOpenMenu, LogoIcon }: NavbarProp
         <LogoIcon className="" size={40} />
       </div>
 
-      {/* Desktop Navigation: Visible only on md and up */}
-      <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+      {/* Desktop Navigation: Visible only on lg (1024px) and up — aligned with sidebar desktop breakpoint */}
+      <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
         <button className="hover:text-white transition-colors" onClick={onExplore}>Explore</button>
         <button 
           className="hover:text-white transition-colors" 
@@ -30,10 +30,10 @@ export function Navbar({ onExplore, onSubmit, onOpenMenu, LogoIcon }: NavbarProp
         <button className="hover:text-white transition-colors" onClick={onSubmit}>Submit Project</button>
       </nav>
 
-      {/* Mobile Menu Trigger: Visible only on mobile/tablet, hidden on md and up */}
+      {/* Mobile/Tablet Menu Trigger: Visible below lg (1024px), hidden on desktop */}
       <div className="flex items-center gap-4">
         <button
-          className="sidebar-mobile-trigger flex md:hidden items-center justify-center"
+          className="sidebar-mobile-trigger flex lg:hidden items-center justify-center"
           onClick={onOpenMenu}
           aria-label="Open navigation"
         >

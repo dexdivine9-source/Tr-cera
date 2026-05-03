@@ -415,7 +415,7 @@ function LeaderboardView({ onHome, onProjectClick, onSubmit, externalCategory, o
             </select>
             
             <button
-              className="sidebar-mobile-trigger flex md:hidden items-center justify-center"
+              className="sidebar-mobile-trigger flex lg:hidden items-center justify-center"
               onClick={onOpenMenu}
               aria-label="Open navigation"
             >
@@ -602,7 +602,7 @@ function ProjectDetailView({ projectId, onBack, onHome, onSubmit, onOpenMenu }: 
                Visit App <ExternalLink size={16} />
              </button>
              <button
-               className="sidebar-mobile-trigger flex md:hidden items-center justify-center"
+               className="sidebar-mobile-trigger flex lg:hidden items-center justify-center"
                onClick={onOpenMenu}
                aria-label="Open navigation"
              >
