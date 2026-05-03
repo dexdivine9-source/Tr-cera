@@ -34,6 +34,7 @@ body {
   font-family: var(--font-sans);
   margin: 0;
   padding: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   min-height: 100vh;
   min-height: 100dvh;
   box-sizing: border-box;
@@ -587,8 +588,8 @@ h1, h2, h3, h4, h5, h6 {
 /* ─── Mobile Hamburger Button ─── */
 .sidebar-mobile-trigger {
   position: fixed;
-  top: 18px;
-  right: 16px;
+  top: calc(18px + env(safe-area-inset-top, 0px));
+  right: calc(16px + env(safe-area-inset-right, 0px));
   z-index: 40;
   width: 40px;
   height: 40px;
