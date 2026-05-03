@@ -648,7 +648,7 @@ h1, h2, h3, h4, h5, h6 {
 /*  RESPONSIVE BREAKPOINTS                            */
 /* ═══════════════════════════════════════════════════ */
 
-/* Desktop: sidebar visible */
+/* Desktop (≥1024px): persistent sidebar */
 @media (min-width: 1024px) {
   .sidebar {
     position: fixed;
@@ -663,45 +663,10 @@ h1, h2, h3, h4, h5, h6 {
   .app-layout.layout-collapsed .app-main-content {
     margin-left: 72px;
   }
-
 }
 
-/* Tablet: collapse by default */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .sidebar {
-    width: 72px !important;
-  }
-
-  .sidebar.sidebar-mobile-open {
-    width: 260px !important;
-  }
-
-  .app-main-content {
-    margin-left: 72px;
-  }
-
-
-  .sidebar .sidebar-nav-item {
-    justify-content: center;
-    padding: 10px 0;
-  }
-
-  .sidebar .sidebar-header {
-    justify-content: center;
-    padding: 20px 8px 16px;
-  }
-
-  .sidebar .sidebar-logo-row {
-    justify-content: center;
-  }
-
-  .sidebar .sidebar-collapse-btn.desktop-only {
-    display: none;
-  }
-}
-
-/* Mobile: sidebar hidden, trigger visible */
-@media (max-width: 767px) {
+/* Mobile + Tablet (<1024px): sidebar is a hidden right-slide drawer */
+@media (max-width: 1023px) {
   .sidebar {
     left: auto;
     right: 0;
@@ -725,7 +690,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 0;
   }
 
-
   .desktop-only {
     display: none !important;
   }
@@ -734,16 +698,21 @@ h1, h2, h3, h4, h5, h6 {
     display: flex !important;
   }
 
-  /* Override collapsed width on mobile — always full drawer */
+  /* Override collapsed width — always full drawer */
   .sidebar.sidebar-collapsed {
     width: 85vw;
     max-width: 340px;
   }
 
-  /* Mobile nav items: larger touch targets */
+  /* Larger touch targets */
   .sidebar-nav-item {
     padding: 12px 14px;
     font-size: 0.9375rem;
+  }
+
+  /* Sidebar collapse button hidden on mobile/tablet */
+  .sidebar .sidebar-collapse-btn.desktop-only {
+    display: none;
   }
 
   /* Premium Sidebar CTA button */
