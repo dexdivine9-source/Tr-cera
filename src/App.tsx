@@ -210,7 +210,7 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: Rea
           </button>
           <button className="hover:text-white transition-colors" onClick={onSubmit}>Submit Project</button>
         </nav>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 pr-14 md:pr-0">
           <button className="btn-secondary text-sm hidden sm:block" onClick={onSignup}>Sign up</button>
         </div>
       </header>
