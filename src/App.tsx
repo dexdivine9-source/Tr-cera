@@ -78,6 +78,7 @@ export default function App() {
         onMobileClose={() => setMobileOpen(false)}
         onNavigate={handleSidebarNavigate}
         activeView={view.name}
+        onSignup={goSignup}
       />
 
       {/* Main Content */}
@@ -120,7 +121,7 @@ function SignupView({ onClose }: { key?: React.Key; onClose: () => void }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="w-full h-full flex flex-col items-center justify-center p-6 relative overflow-y-auto"
+      className="w-full h-full min-h-[100dvh] bg-[#0a0a0f] flex flex-col items-center justify-center p-6 relative overflow-y-auto"
     >
       <button onClick={onClose} className="absolute top-6 left-6 flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-semibold cursor-pointer">
         <ArrowLeft size={16} /> Back
@@ -189,7 +190,7 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: Rea
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="w-full h-full overflow-y-auto overflow-x-hidden pb-24"
+      className="w-full h-full min-h-[100dvh] bg-[#0a0a0f] overflow-y-auto overflow-x-hidden pb-24"
     >
       {/* Header/Nav */}
       <header className="flex justify-between items-center py-6 mb-12 max-w-6xl mx-auto px-6">
@@ -407,7 +408,7 @@ function LeaderboardView({ onHome, onProjectClick, onSubmit, externalCategory, o
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="w-full h-full overflow-y-auto overflow-x-hidden pb-12"
+      className="w-full h-full min-h-[100dvh] bg-[#0a0a0f] overflow-y-auto overflow-x-hidden pb-12"
     >
       <div className="max-w-6xl mx-auto px-6 py-10">
         
@@ -616,7 +617,7 @@ function ProjectDetailView({ projectId, onBack, onHome, onSubmit }: { key?: Reac
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
-      className="w-full h-full overflow-y-auto overflow-x-hidden pb-24"
+      className="w-full h-full min-h-[100dvh] bg-[#0a0a0f] overflow-y-auto overflow-x-hidden pb-24"
     >
       <div className="max-w-6xl mx-auto px-6 py-10">
         <header className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
@@ -965,7 +966,7 @@ function SubmitProjectView({ onClose }: { key?: React.Key; onClose: () => void }
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="w-full h-full overflow-y-auto overflow-x-hidden pb-24 relative"
+      className="w-full h-full min-h-[100dvh] bg-[#0a0a0f] overflow-y-auto overflow-x-hidden pb-24 relative"
     >
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-purple/5 blur-[120px] rounded-full pointer-events-none -z-10" />
       <div className="max-w-3xl mx-auto px-6 py-10">

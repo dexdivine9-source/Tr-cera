@@ -588,7 +588,7 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar-mobile-trigger {
   position: fixed;
   top: 18px;
-  left: 16px;
+  right: 16px;
   z-index: 40;
   width: 40px;
   height: 40px;
@@ -713,15 +713,22 @@ h1, h2, h3, h4, h5, h6 {
 /* Mobile: sidebar hidden, trigger visible */
 @media (max-width: 767px) {
   .sidebar {
-    width: 280px;
-    transform: translateX(-100%);
+    left: auto;
+    right: 0;
+    width: 85vw;
+    max-width: 340px;
+    height: 100vh;
+    height: 100dvh;
+    transform: translateX(100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: none;
+    border-right: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .sidebar.sidebar-mobile-open {
     transform: translateX(0);
-    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.5);
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
   }
 
   .app-main-content {
@@ -740,7 +747,41 @@ h1, h2, h3, h4, h5, h6 {
     display: flex !important;
   }
 
-  .sidebar-collapsed {
-    width: 280px;
+  /* Override collapsed width on mobile — always full drawer */
+  .sidebar.sidebar-collapsed {
+    width: 85vw;
+    max-width: 340px;
+  }
+
+  /* Mobile nav items: larger touch targets */
+  .sidebar-nav-item {
+    padding: 12px 14px;
+    font-size: 0.9375rem;
+  }
+
+  /* Mobile CTA button */
+  .sidebar-mobile-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    background: rgba(139, 92, 246, 0.12);
+    color: #c4b5fd;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 8px;
+    box-sizing: border-box;
+  }
+
+  .sidebar-mobile-cta:hover {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.5);
+    color: #e9e0ff;
   }
 }

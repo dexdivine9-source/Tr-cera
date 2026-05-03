@@ -50,6 +50,7 @@ interface SidebarProps {
   onMobileClose: () => void;
   onNavigate: (view: 'home' | 'leaderboard') => void;
   activeView: string;
+  onSignup: () => void;
 }
 
 // ─── Helper: compute project counts per category ───
@@ -91,6 +92,7 @@ export default function Sidebar({
   onMobileClose,
   onNavigate,
   activeView,
+  onSignup,
 }: SidebarProps) {
   const counts = useCategoryCounts();
   const trendingCats = useTrendingCategories();
@@ -228,7 +230,7 @@ export default function Sidebar({
       </nav>
 
       {/* ─── Bottom / Footer ─── */}
-      <div className="sidebar-footer">
+      <div className="sidebar-footer" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {!collapsed && (
           <div className="sidebar-footer-content">
             <div className="sidebar-live-badge">
@@ -236,6 +238,19 @@ export default function Sidebar({
               <span className="sidebar-live-text">Live Data</span>
             </div>
           </div>
+        )}
+        
+        {/* Mobile Sign Up CTA */}
+        {mobileOpen && (
+          <button 
+            className="sidebar-mobile-cta"
+            onClick={() => {
+              onSignup();
+              onMobileClose();
+            }}
+          >
+            Sign In / Subscribe
+          </button>
         )}
       </div>
     </div>
