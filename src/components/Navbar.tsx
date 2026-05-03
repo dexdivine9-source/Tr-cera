@@ -11,8 +11,9 @@ interface NavbarProps {
 export function Navbar({ onExplore, onSubmit, onOpenMenu, LogoIcon }: NavbarProps) {
   return (
     <header className="flex justify-between items-center py-6 mb-12 max-w-6xl mx-auto px-6 w-full">
-      <div className="flex items-center cursor-pointer select-none" onClick={onExplore}>
+      <div className="flex items-center gap-2.5 cursor-pointer select-none" onClick={onExplore}>
         <LogoIcon className="" size={40} />
+        <span className="text-white font-bold text-lg tracking-[0.12em] font-display">TRÆCERA</span>
       </div>
 
       {/* Desktop Navigation: Visible only on lg (1024px) and up — aligned with sidebar desktop breakpoint */}
