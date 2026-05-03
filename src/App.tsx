@@ -880,7 +880,7 @@ function Footer() {
             <LogoIcon className="" size={32} />
           </div>
           <p className="mb-8 font-sans">
-            The definitive intelligence layer for<br/>African Web3 innovation.
+            The Intelligence Layer For<br/>Africa Solana Ecosystem.
           </p>
           <div className="text-[10px] uppercase tracking-wider text-[#4B5563] font-mono font-bold">
             © 2026 TRÆCERA ANALYTICS
