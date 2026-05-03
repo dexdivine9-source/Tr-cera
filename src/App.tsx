@@ -22,6 +22,7 @@ import {
 import { projectsData, Project } from './data/projects';
 import { motion, AnimatePresence } from 'motion/react';
 import Sidebar from './components/Sidebar';
+import { MethodologySection } from './components/MethodologySection';
 
 type ViewState = 
   | { name: 'home' }
@@ -258,47 +259,7 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit, onOpenMenu }:
       </section>
 
       {/* Methodology Features */}
-      <section id="methodology" className="max-w-6xl mx-auto px-6 py-12 scroll-mt-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Left Card - Large */}
-          <div className="glass-card p-10 flex flex-col justify-center bg-[#080808] border-[rgba(255,255,255,0.03)] hover:border-[rgba(255,255,255,0.08)]">
-            <div className="w-12 h-12 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center mb-6">
-              <TrendingUp className="text-brand-purple" size={24} />
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Momentum Intelligence</h3>
-            <p className="text-[#9CA3AF] leading-relaxed text-lg max-w-sm">
-              We track developer commits, social sentiment, and organic community growth to capture true momentum before the market reacts.
-            </p>
-          </div>
-
-          {/* Right Stack */}
-          <div className="flex flex-col gap-6">
-            <div className="glass-card p-8 flex flex-row items-start gap-6 bg-[#080808] border-[rgba(255,255,255,0.03)] hover:border-[rgba(255,255,255,0.08)] flex-1">
-              <div className="w-12 h-12 shrink-0 rounded-xl bg-[#3b82f6]/10 border border-[#3b82f6]/20 flex items-center justify-center">
-                <ShieldCheck className="text-[#3b82f6]" size={24} />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">Trust Verification</h3>
-                <p className="text-[#9CA3AF] leading-relaxed text-[15px]">
-                  Audits, doxxed teams, and local FIAT integrations factor heavily into the Træcera Score.
-                </p>
-              </div>
-            </div>
-
-            <div className="glass-card p-8 flex flex-row items-start gap-6 bg-[#080808] border-[rgba(255,255,255,0.03)] hover:border-[rgba(255,255,255,0.08)] flex-1">
-              <div className="w-12 h-12 shrink-0 rounded-xl bg-[#f43f5e]/10 border border-[#f43f5e]/20 flex items-center justify-center">
-                <Activity className="text-[#f43f5e]" size={24} />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">On-Chain Velocity</h3>
-                <p className="text-[#9CA3AF] leading-relaxed text-[15px]">
-                  How actively and efficiently a project is being used on-chain over time.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <MethodologySection />
 
       {/* Top Leaderboard Preview */}
       <section className="max-w-5xl mx-auto px-6 py-16">
