@@ -585,20 +585,16 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 45;
 }
 
-/* ─── Mobile Hamburger Button ─── */
+/* ─── Mobile Hamburger Button (Now integrated in Header) ─── */
 .sidebar-mobile-trigger {
-  position: fixed;
-  top: calc(18px + env(safe-area-inset-top, 0px));
-  right: calc(16px + env(safe-area-inset-right, 0px));
-  z-index: 40;
   width: 40px;
   height: 40px;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(8, 8, 12, 0.8);
+  background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: #e2e8f0;
@@ -670,7 +666,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .sidebar-mobile-trigger {
-    display: none !important;
+    display: flex;
   }
 }
 
@@ -760,29 +756,29 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.9375rem;
   }
 
-  /* Mobile CTA button */
-  .sidebar-mobile-cta {
+  /* Premium Sidebar CTA button */
+  .sidebar-cta-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 14px 16px;
+    padding: 12px 16px;
     border-radius: 12px;
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    background: rgba(139, 92, 246, 0.12);
-    color: #c4b5fd;
+    background: linear-gradient(135deg, var(--color-brand-purple), var(--color-brand-blue));
+    color: #ffffff;
     font-family: var(--font-sans);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin: 0 8px;
-    box-sizing: border-box;
+    border: none;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+    margin: 0;
   }
 
-  .sidebar-mobile-cta:hover {
-    background: rgba(139, 92, 246, 0.2);
-    border-color: rgba(139, 92, 246, 0.5);
-    color: #e9e0ff;
+  .sidebar-cta-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+    filter: brightness(1.1);
   }
 }

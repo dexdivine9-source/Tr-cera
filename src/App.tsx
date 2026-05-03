@@ -59,15 +59,6 @@ export default function App() {
 
   return (
     <div className={`app-layout ${sidebarCollapsed ? 'layout-collapsed' : ''}`}>
-      {/* Mobile hamburger trigger */}
-      <button
-        className="sidebar-mobile-trigger"
-        onClick={() => setMobileOpen(true)}
-        aria-label="Open navigation"
-      >
-        <Menu size={20} />
-      </button>
-
       {/* Sidebar */}
       <Sidebar
         activeCategory={activeCategory}
@@ -85,7 +76,14 @@ export default function App() {
       <main className="app-main-content selection:bg-[#14F195]/30">
         <AnimatePresence mode="wait">
           {view.name === 'home' && (
-            <HomeView key="home" onExplore={goLeaderboard} onProjectClick={goProject} onSignup={goSignup} onSubmit={goSubmit} />
+            <HomeView 
+              key="home" 
+              onExplore={goLeaderboard} 
+              onProjectClick={goProject} 
+              onSignup={goSignup} 
+              onSubmit={goSubmit} 
+              onOpenMenu={() => setMobileOpen(true)}
+            />
           )}
           {view.name === 'leaderboard' && (
             <LeaderboardView
@@ -95,10 +93,18 @@ export default function App() {
               onSubmit={goSubmit}
               externalCategory={activeCategory}
               onCategoryChange={setActiveCategory}
+              onOpenMenu={() => setMobileOpen(true)}
             />
           )}
           {view.name === 'project' && (
-            <ProjectDetailView key={`project-${view.id}`} projectId={view.id} onBack={goLeaderboard} onHome={goHome} onSubmit={goSubmit} />
+            <ProjectDetailView 
+              key={`project-${view.id}`} 
+              projectId={view.id} 
+              onBack={goLeaderboard} 
+              onHome={goHome} 
+              onSubmit={goSubmit} 
+              onOpenMenu={() => setMobileOpen(true)}
+            />
           )}
           {view.name === 'signup' && (
             <SignupView key="signup" onClose={goHome} />
@@ -175,7 +181,7 @@ function SignupView({ onClose }: { key?: React.Key; onClose: () => void }) {
 // -----------------------------------------
 // Home View
 // -----------------------------------------
-function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: React.Key; onExplore: () => void; onProjectClick: (id: string) => void; onSignup: () => void; onSubmit: () => void }) {
+function HomeView({ onExplore, onProjectClick, onSignup, onSubmit, onOpenMenu }: { key?: React.Key; onExplore: () => void; onProjectClick: (id: string) => void; onSignup: () => void; onSubmit: () => void; onOpenMenu: () => void }) {
   const topProjects = [...projectsData]
     .sort((a, b) => b.trending_score - a.trending_score)
     .slice(0, 5);
@@ -210,8 +216,14 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: Rea
           </button>
           <button className="hover:text-white transition-colors" onClick={onSubmit}>Submit Project</button>
         </nav>
-        <div className="flex items-center gap-4 pr-14 md:pr-0">
-          <button className="btn-secondary text-sm hidden sm:block" onClick={onSignup}>Sign up</button>
+        <div className="flex items-center gap-4">
+          <button
+            className="sidebar-mobile-trigger"
+            onClick={onOpenMenu}
+            aria-label="Open navigation"
+          >
+            <Menu size={20} />
+          </button>
         </div>
       </header>
 
@@ -375,7 +387,7 @@ function HomeView({ onExplore, onProjectClick, onSignup, onSubmit }: { key?: Rea
 // -----------------------------------------
 // Leaderboard View
 // -----------------------------------------
-function LeaderboardView({ onHome, onProjectClick, onSubmit, externalCategory, onCategoryChange }: { key?: React.Key; onHome: () => void; onProjectClick: (id: string) => void; onSubmit: () => void; externalCategory?: string; onCategoryChange?: (cat: string) => void }) {
+function LeaderboardView({ onHome, onProjectClick, onSubmit, externalCategory, onCategoryChange, onOpenMenu }: { key?: React.Key; onHome: () => void; onProjectClick: (id: string) => void; onSubmit: () => void; externalCategory?: string; onCategoryChange?: (cat: string) => void; onOpenMenu: () => void }) {
   // Use external category from sidebar if provided, otherwise local state
   const [localFilterCat, setLocalFilterCat] = useState<string>('All');
   const filterCat = externalCategory ?? localFilterCat;
@@ -461,21 +473,13 @@ function LeaderboardView({ onHome, onProjectClick, onSubmit, externalCategory, o
               {categories.map(c => <option key={c} value={c} className="bg-[#0a0a0f]">{c}</option>)}
             </select>
             
-            <select 
-              value={filterStatus} 
-              onChange={(e)=>setFilterStatus(e.target.value)}
-              className="glass-card !bg-transparent text-sm !py-2 !px-4 !rounded-full appearance-none outline-none cursor-pointer border-[rgba(255,255,255,0.08)] text-white"
+            <button
+              className="sidebar-mobile-trigger"
+              onClick={onOpenMenu}
+              aria-label="Open navigation"
             >
-              {statuses.map(s => <option key={s} value={s} className="bg-[#0a0a0f]">{s}</option>)}
-            </select>
-
-            <select 
-              value={filterCountry} 
-              onChange={(e)=>setFilterCountry(e.target.value)}
-              className="glass-card !bg-transparent text-sm !py-2 !px-4 !rounded-full appearance-none outline-none cursor-pointer border-[rgba(255,255,255,0.08)] text-white"
-            >
-              {countries.map(c => <option key={c} value={c} className="bg-[#0a0a0f]">{c}</option>)}
-            </select>
+              <Menu size={20} />
+            </button>
           </div>
         </header>
 
@@ -584,7 +588,7 @@ function LeaderboardView({ onHome, onProjectClick, onSubmit, externalCategory, o
 // -----------------------------------------
 // Project Detail View
 // -----------------------------------------
-function ProjectDetailView({ projectId, onBack, onHome, onSubmit }: { key?: React.Key; projectId: string; onBack: () => void; onHome: () => void; onSubmit: () => void }) {
+function ProjectDetailView({ projectId, onBack, onHome, onSubmit, onOpenMenu }: { key?: React.Key; projectId: string; onBack: () => void; onHome: () => void; onSubmit: () => void; onOpenMenu: () => void }) {
   const project = projectsData.find(p => p.id === projectId);
   
   if (!project) return <div>Project not found</div>;
@@ -655,6 +659,13 @@ function ProjectDetailView({ projectId, onBack, onHome, onSubmit }: { key?: Reac
              </a>
              <button className="btn-primary flex-1 md:flex-none justify-center">
                Visit App <ExternalLink size={16} />
+             </button>
+             <button
+               className="sidebar-mobile-trigger"
+               onClick={onOpenMenu}
+               aria-label="Open navigation"
+             >
+               <Menu size={20} />
              </button>
           </div>
         </header>

@@ -240,13 +240,13 @@ export default function Sidebar({
           </div>
         )}
         
-        {/* Mobile Sign Up CTA */}
-        {mobileOpen && (
+        {/* Unified Sign Up CTA */}
+        {!collapsed && (
           <button 
-            className="sidebar-mobile-cta"
+            className="sidebar-cta-btn"
             onClick={() => {
               onSignup();
-              onMobileClose();
+              if (mobileOpen) onMobileClose();
             }}
           >
             Sign In / Subscribe
